@@ -12,14 +12,14 @@ public enum PlotLength: String {
     case short
 }
 
-public struct Movie: Decodable {
+public struct Movie: Codable, Hashable {
     public let title: String
     public let year: String
     public let rated: String
-    public let released: String
+    public let released: String?
     public let runTime: String?
     public let plot: String
-    public let posterURL: String
+    public let posterURL: String?
 
     enum CodingKeys: String, CodingKey {
         case title = "Title"
@@ -28,7 +28,13 @@ public struct Movie: Decodable {
         case released = "Released"
         case runTime = "Runtime"
         case plot = "Plot"
-        case posterURL = "PosterURL"
+        case posterURL = "Poster"
+    }
+}
+
+extension Movie: Equatable {
+    public static func ==(lhs: Movie, rhs: Movie) -> Bool {
+        return lhs.title == rhs.title && lhs.year == rhs.year
     }
 }
 

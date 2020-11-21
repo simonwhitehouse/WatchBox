@@ -54,6 +54,7 @@
 		B5392128256885AD00C9627E /* FavoruitesMoveListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoruitesMoveListViewModel.swift; sourceTree = "<group>"; };
 		B539213A256886EA00C9627E /* WBData */ = {isa = PBXFileReference; lastKnownFileType = folder; path = WBData; sourceTree = "<group>"; };
 		B539213E256886FB00C9627E /* WBNetworking */ = {isa = PBXFileReference; lastKnownFileType = folder; path = WBNetworking; sourceTree = "<group>"; };
+		B5D9B34E256920CD005E2B53 /* WBPersistenceStore */ = {isa = PBXFileReference; lastKnownFileType = folder; path = WBPersistenceStore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +86,7 @@
 		B53920BF25687F0300C9627E = {
 			isa = PBXGroup;
 			children = (
+				B5D9B34E256920CD005E2B53 /* WBPersistenceStore */,
 				B539213E256886FB00C9627E /* WBNetworking */,
 				B539213A256886EA00C9627E /* WBData */,
 				B53920CA25687F0300C9627E /* WatchBox */,
