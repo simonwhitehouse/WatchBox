@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,7 @@
 		B53921002568801000C9627E /* RootCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53920FF2568801000C9627E /* RootCoordinator.swift */; };
 		B539211F2568858000C9627E /* FavoruitesMoveListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B539211E2568858000C9627E /* FavoruitesMoveListViewController.swift */; };
 		B5392129256885AD00C9627E /* FavoruitesMoveListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5392128256885AD00C9627E /* FavoruitesMoveListViewModel.swift */; };
+		B5D9B343256915DE005E2B53 /* WBNetworking in Frameworks */ = {isa = PBXBuildFile; productRef = B5D9B342256915DE005E2B53 /* WBNetworking */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5D9B343256915DE005E2B53 /* WBNetworking in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -192,6 +194,7 @@
 			);
 			name = WatchBox;
 			packageProductDependencies = (
+				B5D9B342256915DE005E2B53 /* WBNetworking */,
 			);
 			productName = WatchBox;
 			productReference = B53920C825687F0300C9627E /* WatchBox.app */;
@@ -635,6 +638,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B5D9B342256915DE005E2B53 /* WBNetworking */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WBNetworking;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B53920C025687F0300C9627E /* Project object */;
 }
