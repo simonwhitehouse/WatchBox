@@ -16,6 +16,7 @@
 		B53921002568801000C9627E /* RootCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53920FF2568801000C9627E /* RootCoordinator.swift */; };
 		B539211F2568858000C9627E /* FavoruitesMoveListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B539211E2568858000C9627E /* FavoruitesMoveListViewController.swift */; };
 		B5392129256885AD00C9627E /* FavoruitesMoveListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5392128256885AD00C9627E /* FavoruitesMoveListViewModel.swift */; };
+		B53D3E76256971C90041AC29 /* FavouriteMovieListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53D3E75256971C90041AC29 /* FavouriteMovieListTableViewCell.swift */; };
 		B5D9B343256915DE005E2B53 /* WBNetworking in Frameworks */ = {isa = PBXBuildFile; productRef = B5D9B342256915DE005E2B53 /* WBNetworking */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +55,7 @@
 		B5392128256885AD00C9627E /* FavoruitesMoveListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoruitesMoveListViewModel.swift; sourceTree = "<group>"; };
 		B539213A256886EA00C9627E /* WBData */ = {isa = PBXFileReference; lastKnownFileType = folder; path = WBData; sourceTree = "<group>"; };
 		B539213E256886FB00C9627E /* WBNetworking */ = {isa = PBXFileReference; lastKnownFileType = folder; path = WBNetworking; sourceTree = "<group>"; };
+		B53D3E75256971C90041AC29 /* FavouriteMovieListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FavouriteMovieListTableViewCell.swift; path = WatchBox/Favoruites/Cells/FavouriteMovieListTableViewCell.swift; sourceTree = SOURCE_ROOT; };
 		B5D9B34E256920CD005E2B53 /* WBPersistenceStore */ = {isa = PBXFileReference; lastKnownFileType = folder; path = WBPersistenceStore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -167,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				B539211E2568858000C9627E /* FavoruitesMoveListViewController.swift */,
+				B53D3E75256971C90041AC29 /* FavouriteMovieListTableViewCell.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -311,6 +314,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B53D3E76256971C90041AC29 /* FavouriteMovieListTableViewCell.swift in Sources */,
 				B53921002568801000C9627E /* RootCoordinator.swift in Sources */,
 				B5392129256885AD00C9627E /* FavoruitesMoveListViewModel.swift in Sources */,
 				B53920CC25687F0300C9627E /* AppDelegate.swift in Sources */,

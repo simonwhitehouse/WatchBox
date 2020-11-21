@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import WBData
 
 protocol Coordinator {
     func start()
@@ -13,8 +14,21 @@ protocol Coordinator {
 
 public class RootCoordinator: Coordinator {
 
+    private lazy var searchFilmsViewModel: SearchFilmsViewModel = {
+        let searchFilmsViewModel = SearchFilmsViewModel()
+        searchFilmsViewModel.movieSelectedHandler = { [weak self] movie in
+            self?.view(movie: movie)
+        }
+        return searchFilmsViewModel
+    }()
+
     private lazy var favoruitesMoveListViewModel: FavoruitesMoveListViewModel = {
-        return FavoruitesMoveListViewModel()
+        let favoruitesMoveListViewModel = FavoruitesMoveListViewModel(searchFilmsViewModel: self.searchFilmsViewModel)
+
+        favoruitesMoveListViewModel.movieSelectedHandler = { [weak self] movie in
+            self?.view(movie: movie)
+        }
+        return favoruitesMoveListViewModel
     }()
 
     private lazy var favoruitesMoveListViewController: FavoruitesMoveListViewController = {
@@ -31,4 +45,11 @@ public class RootCoordinator: Coordinator {
         let navigation = UINavigationController(rootViewController: self.favoruitesMoveListViewController)
         return navigation
     }()
+
+    public func view(movie: Movie) {
+        let movieDetailsViewModel = MovieDetailsViewModel(movie: movie)
+        let movieDetailsViewController = MovieDetailsViewController(viewModel: movieDetailsViewModel)
+
+        defaultViewController.pushViewController(movieDetailsViewController, animated: true)
+    }
 }
