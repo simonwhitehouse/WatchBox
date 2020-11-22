@@ -42,7 +42,7 @@ public class RootCoordinator: Coordinator {
         return navigation
     }()
 
-    public func view(movie: Movie) {
+    public func view(movie: MovieRepresentable) {
         let movieDetailsViewModel = MovieDetailsViewModel(movie: movie)
         let movieDetailsViewController = MovieDetailsViewController(viewModel: movieDetailsViewModel)
 

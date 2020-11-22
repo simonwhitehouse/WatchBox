@@ -24,7 +24,7 @@ public class FavouritesMoveListViewModel: FilmListViewModel {
         self.favouritesManager = favouritesManager
     }
 
-    public func fetchFavourites(completion: ((_ movies: [Movie]) -> Void)) {
+    public func fetchFavourites(completion: ((_ movies: [MovieRepresentable]) -> Void)) {
         let favourites = favouritesManager.fetchFavourites()
         self.update(movies: favourites)
         completion(favourites)

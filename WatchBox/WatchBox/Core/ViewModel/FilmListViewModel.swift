@@ -16,9 +16,9 @@ public class FilmListViewModel: ViewModel {
 
     let movieServiceProviding: MovieServiceProviding
 
-    private(set) var movies: [Movie] = []
+    private(set) var movies: [MovieRepresentable] = []
 
-    public var movieSelectedHandler: ((Movie) -> Void)?
+    public var movieSelectedHandler: ((MovieRepresentable) -> Void)?
 
     public init(movieServiceProviding: MovieServiceProviding = MovieService()) {
         self.movieServiceProviding = movieServiceProviding
@@ -28,11 +28,11 @@ public class FilmListViewModel: ViewModel {
         return movies.count
     }
 
-    func update(movies: [Movie]) {
+    func update(movies: [MovieRepresentable]) {
         self.movies = movies
     }
 
-    func movie(at index: Int) -> Movie? {
+    func movie(at index: Int) -> MovieRepresentable? {
         if index < movies.count {
             return movies[index]
         } else {
@@ -40,7 +40,7 @@ public class FilmListViewModel: ViewModel {
         }
     }
 
-    public func select(movie: Movie) {
+    public func select(movie: MovieRepresentable) {
         movieSelectedHandler?(movie)
     }
 }

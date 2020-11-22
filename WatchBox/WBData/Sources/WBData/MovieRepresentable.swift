@@ -12,39 +12,34 @@ public enum PlotLength: String {
     case short
 }
 
-public struct Movie: Codable, Hashable {
-    public let title: String
-    public let year: String
-    public let rated: String
-    public let released: String?
-    public let runTime: String?
-    public let plot: String
-    public let posterURL: String?
-    public let actors: String?
-    public let id: String
-    public var usersRating: Int?
-
-    enum CodingKeys: String, CodingKey {
-        case title = "Title"
-        case year = "Year"
-        case rated = "Rated"
-        case released = "Released"
-        case runTime = "Runtime"
-        case plot = "Plot"
-        case posterURL = "Poster"
-        case actors = "Actors"
-        case id = "imdbID"
-    }
-
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
+extension CodingUserInfoKey {
+    public static let managedObjectContext = CodingUserInfoKey(rawValue: "managedObjectContext")!
 }
 
-extension Movie: Equatable {
-    public static func ==(lhs: Movie, rhs: Movie) -> Bool {
-        return lhs.title == rhs.title && lhs.year == rhs.year
-    }
+public protocol MovieRepresentable {
+    var title: String? { get }
+    var year: String? { get }
+    var rated: String? { get }
+    var released: String? { get }
+    var runTime: String? { get }
+    var plot: String? { get }
+    var posterURL: String? { get }
+    var actors: String? { get }
+    var id: String? { get }
+    var usersRating: Int16 { get }
+    var isFavourite: Bool { get }
+
+//    enum CodingKeys: String, CodingKey {
+//        case title = "Title"
+//        case year = "Year"
+//        case rated = "Rated"
+//        case released = "Released"
+//        case runTime = "Runtime"
+//        case plot = "Plot"
+//        case posterURL = "Poster"
+//        case actors = "Actors"
+//        case id = "imdbID"
+//    }
 }
 
 /*{

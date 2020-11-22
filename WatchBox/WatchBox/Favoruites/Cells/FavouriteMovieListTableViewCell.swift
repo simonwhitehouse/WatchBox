@@ -76,7 +76,7 @@ public class FavouriteMovieListTableViewCell: UITableViewCell, Reuseable {
 
     var posterDownloadTask: URLSessionTask?
 
-    func configure(movie: Movie, hidePlot: Bool = false) {
+    func configure(movie: MovieRepresentable, hidePlot: Bool = false) {
         setUpUI()
 
         // Hide / Show elements

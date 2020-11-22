@@ -22,7 +22,7 @@ public protocol MovieServiceProviding {
 
     func fetchMovies(with searchTerm: String, plotType: PlotLength, completion: @escaping ((Result<Movie, MovieServiceError>) -> Void)) -> URLSessionTask?
 
-    func fetchMoviePoster(for movie: Movie, useCache: Bool, completion: @escaping ((Result<UIImage, MovieServiceError>) -> Void)) -> URLSessionTask?
+    func fetchMoviePoster(for movie: MovieRepresentable, useCache: Bool, completion: @escaping ((Result<UIImage, MovieServiceError>) -> Void)) -> URLSessionTask?
 }
 
 public struct MovieService: MovieServiceProviding {
@@ -67,9 +67,19 @@ public struct MovieService: MovieServiceProviding {
                     return
                 }
 
-                if let data = data, let movie = try? JSONDecoder().decode(Movie.self, from: data) {
+                if let data = data {
                     print(String(data: data, encoding: .utf8))
-                    completion(.success(movie))
+                    if let exsistingMovie = Movie.fetchMovie(with: data, in: Storage.shared.context) {
+                        exsistingMovie.update(with: data)
+                        completion(.success(exsistingMovie))
+                    } else {
+                        if let movie = try? JSONCoreDataDecoder().decode(Movie.self, from: data) {
+                            completion(.success(movie))
+                        } else {
+                            completion(.failure(.invalidResponse))
+                        }
+                    }
+
                 } else {
                     completion(.failure(.invalidResponse))
                 }
@@ -80,7 +90,7 @@ public struct MovieService: MovieServiceProviding {
         return dataTask
     }
 
-    public func fetchMoviePoster(for movie: Movie, useCache: Bool = true, completion: @escaping ((Result<UIImage, MovieServiceError>) -> Void)) -> URLSessionTask? {
+    public func fetchMoviePoster(for movie: MovieRepresentable, useCache: Bool = true, completion: @escaping ((Result<UIImage, MovieServiceError>) -> Void)) -> URLSessionTask? {
         guard let postURLString = movie.posterURL, let url = URL(string: postURLString) else {
             completion(.failure(.unknownError))
             // TODO: Parse error here
@@ -114,4 +124,11 @@ public struct MovieService: MovieServiceProviding {
         }
     }
 
+}
+
+public class JSONCoreDataDecoder: JSONDecoder {
+    override init() {
+        super.init()
+        self.userInfo[CodingUserInfoKey.managedObjectContext] = Storage.shared.context
+    }
 }

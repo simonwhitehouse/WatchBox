@@ -10,7 +10,7 @@ import UIKit
 public class RateMovieTableViewCell: UITableViewCell, Reuseable {
 
     private var ratingButtons = [UIButton]()
-    private var exsistingRating: Int = 0 {
+    private var exsistingRating: Int16 = 0 {
         didSet {
             updateRateButtonStates()
         }
@@ -26,9 +26,9 @@ public class RateMovieTableViewCell: UITableViewCell, Reuseable {
         return stackView
     }()
 
-    public var ratingChangedHandler: ((Int) -> Void)?
+    public var ratingChangedHandler: ((Int16) -> Void)?
 
-    public func configure(with rating: Int) {
+    public func configure(with rating: Int16) {
         configureUI()
         exsistingRating = rating
     }
@@ -53,7 +53,7 @@ public class RateMovieTableViewCell: UITableViewCell, Reuseable {
             return
         }
 
-        exsistingRating = (index + 1 == exsistingRating) ? 0 : index + 1
+        exsistingRating = (Int16(index) + 1 == exsistingRating) ? 0 : Int16(index) + 1
         ratingChangedHandler?(exsistingRating)
     }
 
