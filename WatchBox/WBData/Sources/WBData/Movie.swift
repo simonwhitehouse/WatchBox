@@ -20,6 +20,9 @@ public struct Movie: Codable, Hashable {
     public let runTime: String?
     public let plot: String
     public let posterURL: String?
+    public let actors: String?
+    public let id: String
+    public var usersRating: Int?
 
     enum CodingKeys: String, CodingKey {
         case title = "Title"
@@ -29,6 +32,12 @@ public struct Movie: Codable, Hashable {
         case runTime = "Runtime"
         case plot = "Plot"
         case posterURL = "Poster"
+        case actors = "Actors"
+        case id = "imdbID"
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 }
 

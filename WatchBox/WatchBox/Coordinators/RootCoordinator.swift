@@ -8,10 +8,6 @@
 import UIKit
 import WBData
 
-protocol Coordinator {
-    func start()
-}
-
 public class RootCoordinator: Coordinator {
 
     private lazy var searchFilmsViewModel: SearchFilmsViewModel = {
@@ -22,17 +18,17 @@ public class RootCoordinator: Coordinator {
         return searchFilmsViewModel
     }()
 
-    private lazy var favoruitesMoveListViewModel: FavoruitesMoveListViewModel = {
-        let favoruitesMoveListViewModel = FavoruitesMoveListViewModel(searchFilmsViewModel: self.searchFilmsViewModel)
+    private lazy var favouritesMoveListViewModel: FavouritesMoveListViewModel = {
+        let favouritesMoveListViewModel = FavouritesMoveListViewModel(searchFilmsViewModel: self.searchFilmsViewModel)
 
-        favoruitesMoveListViewModel.movieSelectedHandler = { [weak self] movie in
+        favouritesMoveListViewModel.movieSelectedHandler = { [weak self] movie in
             self?.view(movie: movie)
         }
-        return favoruitesMoveListViewModel
+        return favouritesMoveListViewModel
     }()
 
-    private lazy var favoruitesMoveListViewController: FavoruitesMoveListViewController = {
-        let favoruitesMoveListViewController = FavoruitesMoveListViewController(viewModel: self.favoruitesMoveListViewModel)
+    private lazy var favouritesMoveListViewController: FavouritesMoveListViewController = {
+        let favoruitesMoveListViewController = FavouritesMoveListViewController(viewModel: self.favouritesMoveListViewModel)
         return favoruitesMoveListViewController
     }()
 
@@ -42,7 +38,7 @@ public class RootCoordinator: Coordinator {
     }
 
     private(set) lazy var defaultViewController: UINavigationController = {
-        let navigation = UINavigationController(rootViewController: self.favoruitesMoveListViewController)
+        let navigation = UINavigationController(rootViewController: self.favouritesMoveListViewController)
         return navigation
     }()
 

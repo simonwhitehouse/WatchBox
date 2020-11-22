@@ -1,5 +1,5 @@
 //
-//  FavoruitesMoveListViewModel.swift
+//  FavouritesMoveListViewModel.swift
 //  WatchBox
 //
 //  Created by Simon Whitehouse on 21/11/2020.
@@ -17,6 +17,7 @@ public class SearchFilmsViewModel: FilmListViewModel {
 
     // Ideally would like to add some debouncing on here to ensure the API isnt bombarded with requests
     public func fetchMovies(with searchTerm: String?, plotType: PlotLength = .full, completion: @escaping ((_ movies: Movie?) -> Void)) {
+
         guard let searchTerm = searchTerm else {
             activeFetchRequest?.cancel()
             activeSearchTerm = nil

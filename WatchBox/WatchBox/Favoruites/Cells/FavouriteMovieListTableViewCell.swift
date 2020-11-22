@@ -10,7 +10,7 @@ import UIKit
 import WBData
 import WBNetworking
 
-public class FavouriteMovieListTableViewCell: UITableViewCell {
+public class FavouriteMovieListTableViewCell: UITableViewCell, Reuseable {
 
     private lazy var posterImageView: UIImageView = {
         let posterImageView = UIImageView()
@@ -76,12 +76,13 @@ public class FavouriteMovieListTableViewCell: UITableViewCell {
 
     var posterDownloadTask: URLSessionTask?
 
-    func configure(movie: Movie) {
+    func configure(movie: Movie, hidePlot: Bool = false) {
         setUpUI()
 
         // Hide / Show elements
         posterImageView.isHidden = movie.posterURL == nil
-
+        plotLabel.isHidden = hidePlot
+        
         titleLabel.text = movie.title
         releasedYearLabel.text = movie.year
         plotLabel.text = movie.plot

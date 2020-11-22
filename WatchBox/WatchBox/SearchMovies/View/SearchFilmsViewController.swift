@@ -20,6 +20,7 @@ public class SearchFilmsViewController: FilmListViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    @objc
     public func fetchFilmes(with searchTerm: String?) {
         viewModel.fetchMovies(with: searchTerm) { [weak self] _ in
             self?.tableView.reloadData()

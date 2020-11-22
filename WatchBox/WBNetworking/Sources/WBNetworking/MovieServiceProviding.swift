@@ -68,6 +68,7 @@ public struct MovieService: MovieServiceProviding {
                 }
 
                 if let data = data, let movie = try? JSONDecoder().decode(Movie.self, from: data) {
+                    print(String(data: data, encoding: .utf8))
                     completion(.success(movie))
                 } else {
                     completion(.failure(.invalidResponse))

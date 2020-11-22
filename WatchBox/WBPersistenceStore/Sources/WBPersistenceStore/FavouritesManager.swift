@@ -1,17 +1,17 @@
 //
-//  FavoruitesManager.swift
+//  FavouritesManager.swift
 //  
 //
 //  Created by Simon Whitehouse on 21/11/2020.
 //
 
-import CoreData
+import Foundation
 
 import WBData
 
-public class FavoruitesManager {
+public class FavouritesManager {
     private let storage: Storage
-    public static let `default` = FavoruitesManager()
+    public static let `default` = FavouritesManager()
 
     init(storage: Storage = Storage()) {
         self.storage = storage
@@ -27,6 +27,19 @@ public class FavoruitesManager {
         } else {
             storage.remove(movie: movie)
         }
+    }
+
+    public func updateRating(for movie: Movie) {
+        storage.update(movie: movie)
+    }
+
+    public func isMovieAFavourite(movie: Movie) -> Bool {
+        let movies = fetchFavourites()
+        return movies.contains(movie)
+    }
+
+    public func clear() {
+        storage.clear()
     }
 }
 
@@ -60,9 +73,25 @@ class Storage {
         save(movies: Array(exsistingMovies))
     }
 
+    func update(movie: Movie) {
+        remove(movie: movie)
+        add(favourite: movie)
+    }
+
     private func save(movies: [Movie]) {
         if let data = try? JSONEncoder().encode(movies) {
             userDefaults.setValue(data, forKey: "favourites")
         }
+    }
+
+    func clear() {
+        save(movies: [])
+    }
+}
+
+
+public extension Movie {
+    var isFavourite: Bool {
+        FavouritesManager.default.isMovieAFavourite(movie: self)
     }
 }

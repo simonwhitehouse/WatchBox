@@ -24,7 +24,7 @@ public class FilmListViewModel: ViewModel {
         self.movieServiceProviding = movieServiceProviding
     }
 
-    var numberOfFavoruties: Int {
+    var numberOfFavourites: Int {
         return movies.count
     }
 

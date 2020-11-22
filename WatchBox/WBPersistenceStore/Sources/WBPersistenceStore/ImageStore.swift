@@ -9,7 +9,7 @@ import UIKit
 
 public class ImageStore {
 
-    public static let `shared` = ImageStore()
+    public static let shared = ImageStore()
 
     private let cache: NSCache<NSString, UIImage>
 
