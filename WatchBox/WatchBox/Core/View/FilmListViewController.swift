@@ -15,8 +15,12 @@ public class FilmListViewController: UIViewController {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(FavouriteMovieListTableViewCell.self, forCellReuseIdentifier: "FavouriteMovieListTableViewCell")
+        tableView.register(TextTableViewCell.self, forCellReuseIdentifier: TextTableViewCell.reuseIdentifier)
+        tableView.register(LoadingTableViewCell.self, forCellReuseIdentifier: LoadingTableViewCell.reuseIdentifier)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.backgroundView = nil
+        tableView.separatorInset = .zero
         return tableView
     }()
 
@@ -52,17 +56,26 @@ extension FilmListViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.numberOfFavourites
+        return viewModel.numberOfRowsToDisplay
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "FavouriteMovieListTableViewCell", for: indexPath) as? FavouriteMovieListTableViewCell, let movie = viewModel.movie(at: indexPath.row) else {
-            return UITableViewCell()
-        }
+        if viewModel.noMoviesToDisplay {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "TextTableViewCell", for: indexPath) as? TextTableViewCell else {
+                return UITableViewCell()
+            }
 
-        cell.configure(movie: movie)
-        cell.accessoryType = .disclosureIndicator
-        return cell
+            cell.configure(text: viewModel.noMoviesToDisplayInformationString, textAlignment: .center)
+            return cell
+        } else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "FavouriteMovieListTableViewCell", for: indexPath) as? FavouriteMovieListTableViewCell, let movie = viewModel.movie(at: indexPath.row) else {
+                return UITableViewCell()
+            }
+
+            cell.configure(movie: movie)
+            cell.accessoryType = .disclosureIndicator
+            return cell
+        }
     }
 
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

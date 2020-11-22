@@ -11,7 +11,7 @@ import WBData
 import WBPersistenceStore
 
 public enum MovieServiceError: Error {
-    case invalidRequest
+    case networkError(Error?)
     case noInternetConnection
     case unknownError
     case invalidResponse
@@ -63,12 +63,11 @@ public struct MovieService: MovieServiceProviding {
             DispatchQueue.main.async {
                 if error != nil {
                     // TODO: Parse error here
-                    completion(.failure(.invalidRequest))
+                    completion(.failure(.networkError(error)))
                     return
                 }
 
                 if let data = data {
-                    print(String(data: data, encoding: .utf8))
                     if let exsistingMovie = Movie.fetchMovie(with: data, in: Storage.shared.context) {
                         exsistingMovie.update(with: data)
                         completion(.success(exsistingMovie))

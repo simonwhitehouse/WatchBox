@@ -16,7 +16,11 @@ public class SearchFilmsViewModel: FilmListViewModel {
     private var activeSearchTerm: String?
 
     // Ideally would like to add some debouncing on here to ensure the API isnt bombarded with requests
-    public func fetchMovies(with searchTerm: String?, plotType: PlotLength = .full, completion: @escaping ((_ movies: Movie?) -> Void)) {
+    public func fetchMovies(with searchTerm: String?, plotType: PlotLength = .full, completion: @escaping ((_ movies: Movie?, _ error: MovieServiceError?) -> Void)) {
+
+        if activeSearchTerm == searchTerm {
+            return
+        }
 
         guard let searchTerm = searchTerm else {
             activeFetchRequest?.cancel()
@@ -30,21 +34,31 @@ public class SearchFilmsViewModel: FilmListViewModel {
             self.activeSearchTerm = nil
         }
 
+        isFetchingData = true
+
         let fetchMovieRequest = movieServiceProviding.fetchMovies(with: searchTerm, plotType: plotType) { [weak self] result in
-            self?.activeSearchTerm = nil
             self?.activeFetchRequest = nil
+            self?.isFetchingData = false
             switch result {
-            case .failure(_):
+            case .failure(let error):
                 self?.update(movies: [])
-                completion(nil)
+                completion(nil, error)
             case .success(let movie):
                 self?.update(movies: [movie])
-                completion(movie)
+                completion(movie, nil)
             }
         }
 
         activeFetchRequest = fetchMovieRequest
         activeSearchTerm = searchTerm
+    }
+
+    override var noMoviesToDisplayInformationString: String {
+        if activeSearchTerm == nil {
+            return super.noMoviesToDisplayInformationString
+        } else {
+            return "No movies matching the term: \"\(activeSearchTerm ?? "")\" found. Please try searching for a different movie."
+        }
     }
 
 }

@@ -11,10 +11,10 @@ import CoreData
 import WBData
 
 public class FavouritesManager {
-    private let storage: Storage
+    private let storage: StorageProviding
     public static let `default` = FavouritesManager()
 
-    init(storage: Storage = Storage.shared) {
+    init(storage: StorageProviding = Storage.shared) {
         self.storage = storage
     }
 

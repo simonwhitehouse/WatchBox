@@ -19,17 +19,29 @@ public class FilmListViewModel: ViewModel {
     private(set) var movies: [MovieRepresentable] = []
 
     public var movieSelectedHandler: ((MovieRepresentable) -> Void)?
+    public var isFetchingDataHandler: ((Bool) -> Void)?
 
     public init(movieServiceProviding: MovieServiceProviding = MovieService()) {
         self.movieServiceProviding = movieServiceProviding
     }
 
-    var numberOfFavourites: Int {
-        return movies.count
+    var numberOfRowsToDisplay: Int {
+        return max(movies.count, 1)
     }
 
     func update(movies: [MovieRepresentable]) {
         self.movies = movies
+    }
+
+    var isFetchingData: Bool = false {
+        didSet {
+            isFetchingDataHandler?(isFetchingData)
+        }
+    }
+    var noMoviesToDisplay: Bool { movies.count == 0 }
+
+    var noMoviesToDisplayInformationString: String {
+        return "Welcome to WatchBox\n\nPlease user the search bar above to search for your favourite movies. All the moviews that you favourite will be displayed here."
     }
 
     func movie(at index: Int) -> MovieRepresentable? {

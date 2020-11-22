@@ -9,8 +9,16 @@ import CoreData
 
 import WBData
 
+public protocol StorageProviding {
+    func fetchMovies(filterFavourites: Bool) -> [MovieRepresentable]
+    func add(favourite: MovieRepresentable)
+    func remove(movie: MovieRepresentable)
+    func update(rating: Int16, for movie: MovieRepresentable)
+    func clear()
+}
+
 // This could be resplaced with anything really, basic userdefaults. See previous commits when had it implemented in simple user default model.
-public class Storage {
+public class Storage: StorageProviding {
 
     private lazy var persistentContainer: NSPersistentContainer = {
         guard
@@ -35,7 +43,7 @@ public class Storage {
 
     public static let shared = Storage()
 
-    func fetchMovies(filterFavourites: Bool) -> [MovieRepresentable] {
+    public func fetchMovies(filterFavourites: Bool) -> [MovieRepresentable] {
         let request: NSFetchRequest<Movie> = Movie.fetchRequest()
 
         if filterFavourites {
@@ -49,28 +57,28 @@ public class Storage {
         }
     }
 
-    func add(favourite: MovieRepresentable) {
+    public func add(favourite: MovieRepresentable) {
         if let movie = favourite as? Movie {
             movie.isFavourite = true
             try? movie.managedObjectContext?.save()
         }
     }
 
-    func remove(movie: MovieRepresentable) {
+    public func remove(movie: MovieRepresentable) {
         if let movie = movie as? Movie {
             movie.isFavourite = false
             try? movie.managedObjectContext?.save()
         }
     }
 
-    func update(rating: Int16, for movie: MovieRepresentable) {
+    public func update(rating: Int16, for movie: MovieRepresentable) {
         if let movie = movie as? Movie {
             movie.usersRating = rating
             try? movie.managedObjectContext?.save()
         }
     }
 
-    func clear() {
+    public func clear() {
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Movie")
         let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
 
